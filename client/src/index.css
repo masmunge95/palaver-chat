@@ -56,10 +56,12 @@ body {
 
 main {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  overflow-y: auto; 
+  display: flex; /* Re-enable flex to center content */
+  justify-content: center; /* Center chat container horizontally */
+  align-items: flex-start; /* Align items to the top */
+  padding: 1rem 0; /* Add some padding */
+} 
 
 /* Header */
 .app-header {
@@ -72,6 +74,9 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 60px;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* High z-index to stay on top */
 }
 .app-header .logo {
   height: 100%;
@@ -113,12 +118,25 @@ body.light .app-header .logo img {
 }
 
 .users-toggle-btn {
-  display: none; /* Hidden by default on desktop */
+  display: block; /* Always visible */
   background: none;
   border: none;
   color: var(--text-light);
   cursor: pointer;
 }
+
+/* Footer */
+.app-footer {
+  padding: 1rem;
+  background-color: var(--background-light);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  flex-shrink: 0; /* Prevent footer from shrinking */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Login Page */
 .login-container {
   background-color: var(--background-light);
@@ -163,12 +181,13 @@ body.light .app-header .logo img {
 .chat-container {
   display: flex;
   width: 100%;
-  height: 100%;
-  max-width: 1200px;
+  max-width: 1200px; /* Limit width on large screens */
   background-color: var(--background-light);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-height: 0; /* Flexbox fix for children */
+  flex-grow: 1; /* Allow container to grow */
 }
 
 /* User List */
@@ -178,6 +197,14 @@ body.light .app-header .logo img {
   padding: 1rem;
   border-right: 1px solid var(--border-color);
   overflow-y: auto;
+  position: sticky;
+  top: 1rem; /* Stick to the top of the main content area */
+  height: calc(100vh - 60px - 2rem); /* Full viewport height minus header and padding */
+  align-self: flex-start;
+}
+
+.user-list.hidden {
+  display: none;
 }
 
 .search-container {
@@ -299,7 +326,7 @@ body.light .app-header .logo img {
 .message-list {
   flex-grow: 1;
   padding: 1rem;
-  overflow-y: auto;
+  /* overflow-y: auto; */ /* Removed: Scrolling is now handled by <main> */
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -760,10 +787,6 @@ body.light .app-header .logo img {
 @media (max-width: 768px) {
   .app-header {
     padding: 0 1rem;
-  }
-
-  .users-toggle-btn {
-    display: block; /* Visible on mobile */
   }
 
   .chat-container {

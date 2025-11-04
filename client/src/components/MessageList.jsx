@@ -8,7 +8,6 @@ const MessageList = () => {
   const { messages, setMessages, typingUsers, selectedUser, hasMoreMessages, setHasMoreMessages, isFetchingMore, setIsFetchingMore, isSearchActive, searchResults, setIsSearchActive, setSearchResults, setSearchTerm } = useChat();
   const { user: currentUser } = useUser(); // Get current user from Clerk
   const messagesEndRef = useRef(null);
-  const scrollContainerRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -68,7 +67,7 @@ const MessageList = () => {
       });
 
   return (
-    <div ref={scrollContainerRef} className="message-list">
+    <div className="message-list">
       {isSearchActive ? (
         <div className="search-results-header">
           <span>Showing search results</span>

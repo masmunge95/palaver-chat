@@ -7,6 +7,7 @@ import {
 import ChatWrapper from './components/ChatWrapper';
 import Header from './components/Header';
 import LandingPage from './pages/LandingPage';
+import Footer from './components/Footer';
 
 function App() {
   const [theme, setTheme] = useState('dark');
@@ -30,6 +31,7 @@ function App() {
           <LandingPage />
         </SignedOut>
       </main>
+      <Footer />
     </div>
   );
 }
